@@ -9,46 +9,49 @@ import time
 options = Options()
 # options.add_argument("--headless")
 options.add_argument("--window-size=1920,1080")
-options.add_argument("--disable-blink-features=AutomationControlled")
+# options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("user-agent=Mozilla/5.0")
-options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Google/Chrome/User Data/Profile 4")
-# options.add_argument("profile-directory=Profile 4")  # or "Default"
+options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Google/Chrome/User Data")
+options.add_argument("profile-directory=Profile 4")  # or "Default"
 
+print("working 1")
 
 driver = webdriver.Chrome(options=options)
 
-time.sleep(2)
+print("working 2")
+
+# time.sleep(2)
 
 
-role = "software engineer"
-role = role.replace(" ", "+")
-location = "toronto"
-date_range = 86400
+# role = "software engineer"
+# role = role.replace(" ", "+")
+# location = "toronto"
+# date_range = 86400
 
-# Update the URL to include the full LinkedIn job search path and query parameters
-# url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
+# # Update the URL to include the full LinkedIn job search path and query parameters
+# # url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
 
-url = "https://www.linkedin.com/jobs/search/?keywords=software+engineer&location=toronto&f_TPR=r86400"
-print(url)
+# url = "https://www.linkedin.com/jobs/search/?keywords=software+engineer&location=toronto&f_TPR=r86400"
+# print(url)
 
 
-driver.get(url)
+# driver.get(url)
 
-print("Current URL:", driver.current_url)
+# print("Current URL:", driver.current_url)
 
-# Add debugging steps to verify the URL and browser navigation
-print("Navigating to URL:", url)
+# # Add debugging steps to verify the URL and browser navigation
+# print("Navigating to URL:", url)
 
-# Check if the browser successfully navigates to the URL
-def verify_navigation():
-    current_url = driver.current_url
-    print("Current URL after navigation:", current_url)
-    if current_url.startswith("https://www.linkedin.com/jobs/search"):
-        print("Navigation successful!")
-    else:
-        print("Navigation failed. Please check the URL or browser settings.")
+# # Check if the browser successfully navigates to the URL
+# def verify_navigation():
+#     current_url = driver.current_url
+#     print("Current URL after navigation:", current_url)
+#     if current_url.startswith("https://www.linkedin.com/jobs/search"):
+#         print("Navigation successful!")
+#     else:
+#         print("Navigation failed. Please check the URL or browser settings.")
 
-verify_navigation()
+# verify_navigation()
 
 
 # try:
