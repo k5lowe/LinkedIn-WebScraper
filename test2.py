@@ -1,20 +1,58 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import time
 
+
+
+
 options = Options()
+# options.add_argument("--headless")
 options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Temp/TempChromeProfile")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("user-agent=Mozilla/5.0")
+
 
 print("working 1")
 driver = webdriver.Chrome(options=options)
 print("working 2")
 
 
-driver.get("https://www.linkedin.com/jobs/search/?keywords=software+engineer&location=toronto&f_TPR=r86400")
+role = "software engineer"
+role = role.replace(" ", "+")
+location = "toronto"
+date_range = 86400
+
+
+url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
+driver.get(url)
+
+
+time.sleep(3)
+
+try:
+    close_btn = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.CLASS_NAME, "artdeco-dismiss"))
+    )
+    close_btn.click()
+except TimeoutException:
+    pass
+
+
+time.sleep(3)
+
+job_elements = driver.find_elements(By.XPATH, '//li[contains(@class, "scaffold-layout__list-item")]')
+print("Found", len(job_elements), "jobs")
 
 
 
-time.sleep(1000)
+for job in job_elements:
+    job.click()
+    time.sleep(2)
+
+
+time.sleep(100)

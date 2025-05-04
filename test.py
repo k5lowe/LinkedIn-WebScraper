@@ -23,13 +23,13 @@ print("working 2")
 # time.sleep(2)
 
 
-# role = "software engineer"
-# role = role.replace(" ", "+")
-# location = "toronto"
-# date_range = 86400
+role = "software engineer"
+role = role.replace(" ", "+")
+location = "toronto"
+date_range = 86400
 
-# # Update the URL to include the full LinkedIn job search path and query parameters
-# # url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
+# Update the URL to include the full LinkedIn job search path and query parameters
+url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
 
 # url = "https://www.linkedin.com/jobs/search/?keywords=software+engineer&location=toronto&f_TPR=r86400"
 # print(url)
