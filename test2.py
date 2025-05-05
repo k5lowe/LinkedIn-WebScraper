@@ -43,16 +43,41 @@ except TimeoutException:
     pass
 
 
-time.sleep(3)
 
-job_elements = driver.find_elements(By.XPATH, '//li[contains(@class, "scaffold-layout__list-item")]')
-print("Found", len(job_elements), "jobs")
+
+
+try:
+    job_elements = WebDriverWait(driver, 5).until(
+        EC.presence_of_all_elements_located(
+            (By.XPATH, '//li[contains(@class, "scaffold-layout__list-item")]')))
+
+    print("Found", len(job_elements), "jobs")
+
+except TimeoutException:
+    print("No jobs have been found")
+
 
 
 
 for job in job_elements:
-    job.click()
-    time.sleep(2)
+    try:
+        job.click()
+        time.sleep(5)
+
+        details = driver.find_element(By.XPATH, '//*[@id="job-details"]/div/p')
+
+        
+
+
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jobs-description__details"))  # Replace with actual class
+        )
+
+        print((details.text)[:100])
+
+        
+    except Exception as e:
+        print(f"Error clicking job: {e}")
 
 
 time.sleep(100)
