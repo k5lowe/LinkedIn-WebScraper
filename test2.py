@@ -57,7 +57,7 @@ except TimeoutException:
 
 
 try:
-    job_elements = WebDriverWait(driver, 5).until(
+    job_elements = WebDriverWait(driver, 2).until(
         EC.presence_of_all_elements_located(
             (By.XPATH, '//li[contains(@class, "scaffold-layout__list-item")]')))
 
@@ -72,13 +72,22 @@ except TimeoutException:
 for job in job_elements:
     try:
         job.click()
-        details = driver.find_element(By.XPATH, '//*[@id="job-details"]/div/p')
-        WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "jobs-description__details"))  # Replace with actual class
-        )
+        # details = WebDriverWait(driver,5).until(
+        #     EC.presence_of_all_elements_located(
+        #         (By.XPATH, '//*[@id="job-details"]')))
 
-        print((details.text)[:100])
+        details = WebDriverWait(driver,5).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="job-details"]')))
 
+        
+        # details = WebDriverWait(driver,5).until(
+        #     EC.presence_of_all_elements_located(
+        #         (By.XPATH, '//*[@id="job-details"]/div/p')))
+
+        # details = driver.find_element(By.XPATH, '//*[@id="job-details"]/div1/p')
+        # print("success")
+        # time.sleep(3)
 
         prompt = f"""
             Extract the qualifications or skills required from the following job 
@@ -91,6 +100,10 @@ for job in job_elements:
             model="gemini-2.0-flash", contents=prompt
         )
         print(response.text)
+
+
+
+        time.sleep(30)
 
         
     except Exception as e:
