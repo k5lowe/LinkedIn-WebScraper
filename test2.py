@@ -5,7 +5,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
+import os
+from dotenv import load_dotenv
+from google import genai
 
+
+load_dotenv()
+
+API_KEY = os.getenv('API_KEY')
+
+
+client = genai.Client(api_key=API_KEY)
 
 
 
@@ -62,18 +72,25 @@ except TimeoutException:
 for job in job_elements:
     try:
         job.click()
-        time.sleep(5)
-
         details = driver.find_element(By.XPATH, '//*[@id="job-details"]/div/p')
-
-        
-
-
         WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.CLASS_NAME, "jobs-description__details"))  # Replace with actual class
         )
 
         print((details.text)[:100])
+
+
+        prompt = f"""
+            Extract the qualifications or skills required from the following job 
+            description. Only return that section in bullet points:
+
+            \"\"\"{details.text}\"\"\"
+            """
+
+        response = client.models.generate_content(
+            model="gemini-2.0-flash", contents=prompt
+        )
+        print(response.text)
 
         
     except Exception as e:
