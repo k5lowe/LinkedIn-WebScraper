@@ -27,9 +27,7 @@ options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("user-agent=Mozilla/5.0")
 
 
-print("working 1")
 driver = webdriver.Chrome(options=options)
-print("working 2")
 
 
 role = "software engineer"
@@ -40,23 +38,38 @@ date_range = 86400
 
 url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
 driver.get(url)
-time.sleep(5)
+
 
 try:
     
-    sign_in_button = WebDriverWait(driver, 2).until(
+    sign_in_button = WebDriverWait(driver, 5).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "button.sign-in-modal__outlet-btn"))
     )
     
     sign_in_button.click()
 
+
     email_input = WebDriverWait(driver,5).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "base-sign-in-modal_session_key"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input#base-sign-in-modal_session_key"))
     )
 
     email_input.send_keys(EMAIL)
+
+    passw_input = WebDriverWait(driver,5).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "input#base-sign-in-modal_session_password"))
+    )
+
+    passw_input.send_keys(PASSW)
+
+    sign_in_submit = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'sign-in-form__submit-btn')]"))
+    )
     
     
+    sign_in_submit.click()
+
+
+  
     
 
 except Exception as e:
@@ -64,7 +77,7 @@ except Exception as e:
     pass
 
 
-time.sleep(30000)
+
 
 try:
     close_btn = WebDriverWait(driver, 5).until(
@@ -121,9 +134,7 @@ for job in job_elements:
         )
         print(response.text)
 
-
-
-        time.sleep(30)
+        time.sleep(3)
 
         
     except Exception as e:
