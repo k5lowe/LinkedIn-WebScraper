@@ -12,9 +12,9 @@ from google import genai
 
 load_dotenv()
 
+EMAIL = os.getenv('EMAIL')
+PASSW = os.getenv('PASSW')
 API_KEY = os.getenv('API_KEY')
-
-
 client = genai.Client(api_key=API_KEY)
 
 
@@ -40,9 +40,31 @@ date_range = 86400
 
 url = f"https://www.linkedin.com/jobs/search/?keywords={role}&location={location}&f_TPR=r{date_range}"
 driver.get(url)
+time.sleep(5)
+
+try:
+    
+    sign_in_button = WebDriverWait(driver, 2).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "button.sign-in-modal__outlet-btn"))
+    )
+    
+    sign_in_button.click()
+
+    email_input = WebDriverWait(driver,5).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "base-sign-in-modal_session_key"))
+    )
+
+    email_input.send_keys(EMAIL)
+    
+    
+    
+
+except Exception as e:
+    print("sign in doesnt work")
+    pass
 
 
-time.sleep(3)
+time.sleep(30000)
 
 try:
     close_btn = WebDriverWait(driver, 5).until(
@@ -54,10 +76,8 @@ except TimeoutException:
 
 
 
-
-
 try:
-    job_elements = WebDriverWait(driver, 2).until(
+    job_elements = WebDriverWait(driver, 5).until(
         EC.presence_of_all_elements_located(
             (By.XPATH, '//li[contains(@class, "scaffold-layout__list-item")]')))
 
@@ -110,4 +130,3 @@ for job in job_elements:
         print(f"Error clicking job: {e}")
 
 
-time.sleep(100)

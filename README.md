@@ -2,7 +2,7 @@
 
 
 
-Things I learned:
+## Things I learned: ##
 
 - The line ``` options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Temp/TempChromeProfile") ``` lets you create a temporary profile in google so that your cookies/cache are saved in that temporary profile 
 - The line ```options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Google/Chrome/User Data")``` must not be specified with a profile name at the end such as: ```options.add_argument("user-data-dir=C:/Users/kushi/AppData/Local/Google/Chrome/User Data/Profile 1")``` as ```user-data-dir``` is just the directory for the **user data**
