@@ -1,3 +1,18 @@
-.venv
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables
 .env
+
+# Web drivers or external binaries
 drivers/
+
+# Google credentials file
+credentials.json
+
+# macOS & Windows system files (optional but common)
+.DS_Store
+Thumbs.db
+
+token.pickle
