@@ -11,7 +11,7 @@ SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
 
 print(SPREADSHEET_ID)
 
-RANGE_NAME = 'LinkedIn-WebScraper-Sheet!B4'
+RANGE_NAME = 'Sheet1!B4:E6'
 
 def authenticate_google_sheets():
     creds = None
